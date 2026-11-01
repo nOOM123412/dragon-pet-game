@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Магический Дракончик</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="aurora"></div>
+
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-orb"></span>
+        <span>Магический Дракончик</span>
+      </div>
+      <div class="player-chip" id="playerChip">гость</div>
+    </header>
+
+    <section class="stage" id="stage">
+      <div class="pet-name-row">
+        <span class="stage-name" id="stageName">Дракончик</span>
+        <span class="stage-badge" id="stageBadge">ур. 1</span>
+      </div>
+
+      <div class="dragon-wrap">
+        <div class="glow-ring"></div>
+        <div class="dragon" id="dragon">
+          <div class="wing wing-l"></div>
+          <div class="wing wing-r"></div>
+          <div class="body">
+            <div class="eye eye-l"><span class="pupil"></span></div>
+            <div class="eye eye-r"><span class="pupil"></span></div>
+            <div class="snout">
+              <div class="nostril n-l"></div>
+              <div class="nostril n-r"></div>
+            </div>
+            <div class="horn horn-l"></div>
+            <div class="horn horn-r"></div>
+          </div>
+          <div class="tail"></div>
+          <div class="flame" id="flame"></div>
+        </div>
+        <div class="sparkles" id="sparkles"></div>
+      </div>
+
+      <div class="mood-bubble" id="moodBubble">Привет! Позаботься обо мне 🐉</div>
+
+      <div class="xp-row">
+        <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
+        <div class="xp-text" id="xpText">0 / 60 XP</div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat" data-stat="hunger">
+        <div class="stat-head"><span class="stat-ico">🍖</span><span>Сытость</span><span class="stat-val" id="valHunger">0</span></div>
+        <div class="bar"><div class="fill fill-hunger" id="barHunger"></div></div>
+      </div>
+      <div class="stat" data-stat="fun">
+        <div class="stat-head"><span class="stat-ico">🎈</span><span>Настроение</span><span class="stat-val" id="valFun">0</span></div>
+        <div class="bar"><div class="fill fill-fun" id="barFun"></div></div>
+      </div>
+      <div class="stat" data-stat="energy">
+        <div class="stat-head"><span class="stat-ico">⚡</span><span>Энергия</span><span class="stat-val" id="valEnergy">0</span></div>
+        <div class="bar"><div class="fill fill-energy" id="barEnergy"></div></div>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button class="action-btn" data-action="feed">
+        <span class="ico">🍖</span><span class="lbl">Кормить</span>
+      </button>
+      <button class="action-btn" data-action="play">
+        <span class="ico">🎈</span><span class="lbl">Играть</span>
+      </button>
+      <button class="action-btn" data-action="rest">
+        <span class="ico">🌙</span><span class="lbl">Спать</span>
+      </button>
+      <button class="action-btn" data-action="pet">
+        <span class="ico">💜</span><span class="lbl">Гладить</span>
+      </button>
+      <button class="action-btn magic-btn" data-action="magic">
+        <span class="ico">🔮</span><span class="lbl">Магия</span>
+      </button>
+    </section>
+
+    <section class="log-panel">
+      <div class="log-title">Летопись ухода</div>
+      <ul class="log" id="log"></ul>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

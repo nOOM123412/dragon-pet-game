@@ -1,0 +1,6 @@
+node_modules/
+dragon.db
+dragon.db-shm
+dragon.db-wal
+*.log
+.DS_Store
