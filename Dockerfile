@@ -16,7 +16,10 @@ COPY . .
 RUN mkdir -p /app/data
 ENV DATA_DIR=/app/data
 ENV NODE_ENV=production
+# Приложение слушает НЕ internal_port (его занимает супервизор Bothost), а отдельный порт,
+# на который супервизор проксирует запросы для домена.
+ENV PORT=8081
 
-EXPOSE 3000
+EXPOSE 3000 8081
 
 CMD ["node", "server.js"]

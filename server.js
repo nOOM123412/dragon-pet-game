@@ -4,7 +4,14 @@ const fs = require('fs');
 const Database = require('better-sqlite3');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+// Bothost устанавливает PORT=3000, но этот порт бывает занят супервизором/старым
+// контейнером. Чтобы избежать EADDRINUSE, слушаем отдельный порт и указываем его
+// как internal_port/порт домена в панели.
+// Слушаем порт, который проксирует Traefik (internal_port в панели = 3000).
+// Mini App-шаблон Bothost отдаёт приложению порт через $PORT (внутренний порт домена).
+// Слушаем его, чтобы домен вёл прямо в приложение.
+const PORT = process.env.PORT || process.env.APP_PORT || 3000;
+console.log('Dragon Pet: binding on port ' + PORT);
 
 // Хранилище: в проде пишем в персистентную папку /app/data,
 // локально можно переопределить через DB_PATH.
@@ -199,6 +206,13 @@ function clamp(v) { return Math.max(0, Math.min(MAX, v)); }
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
-app.listen(PORT, () => {
-  console.log('Dragon Pet server running on http://localhost:' + PORT);
-});
+// Bothost (node-шаблон/кастомный wrapper) сам поднимает HTTP-сервер на internal_port
+// и подключает наш модуль. Поэтому экспортируем express-app и НЕ слушаем порт сами,
+// иначе listen() падает с EADDRINUSE. При прямом запуске (node server.js) — слушаем.
+module.exports = app;
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('Dragon Pet server running on http://localhost:' + PORT);
+  });
+}
