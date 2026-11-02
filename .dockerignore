@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+data
+*.db
+*.db-shm
+*.db-wal
+test-local.db*
+.git
+.vscode
+.idea
+README.md

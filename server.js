@@ -1,10 +1,26 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const Database = require('better-sqlite3');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'dragon.db');
+
+// Хранилище: в проде пишем в персистентную папку /app/data,
+// локально можно переопределить через DB_PATH.
+const DATA_DIR = process.env.DATA_DIR || '/app/data';
+let DB_PATH = process.env.DB_PATH;
+if (!DB_PATH) {
+  try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    DB_PATH = path.join(DATA_DIR, 'dragon.db');
+  } catch (e) {
+    DB_PATH = path.join(__dirname, 'dragon.db');
+  }
+} else {
+  const dir = path.dirname(DB_PATH);
+  try { fs.mkdirSync(dir, { recursive: true }); } catch (e) {}
+}
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
